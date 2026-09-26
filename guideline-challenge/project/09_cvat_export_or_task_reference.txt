@@ -1,8 +1,8 @@
 CVAT task reference — thay mọi placeholder mới là xong.
 
-CVAT version: TODO
-Task calibration (tên, id): TODO
-Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: TODO
-File export đã nộp (đường dẫn trong repo): TODO
-Guideline version dán trong Guide của task: TODO
-Ghi chú cho người tiếp nhận: TODO
+CVAT version: 2.75.1 tại http://localhost:8080
+Task calibration (tên, id): chưa tạo — sample_pack.csv chưa chia example/calibration/blind. Task bộ GTS: project "Day9 - GTS traffic sign" id 6 (http://localhost:8080/projects/6), task "gtsdb-v1" id 29 (http://localhost:8080/tasks/29), job annotation id 30, owner bancie. 28 ảnh GTS01.png–GTS28.png, một job, Shape.
+Task bản cuối theo guideline v3 (tên, id) hoặc lý do không có: chưa có — guideline đang v1, chưa tới bản cuối.
+File export đã nộp (đường dẫn trong repo): chưa nộp.
+Guideline version dán trong Guide của task: v1 (Guide của project, id 2, nội dung 02_guideline.md).
+Ghi chú cho người tiếp nhận: Đăng nhập tài khoản bancie trên CVAT máy này, mở project "Day9 - GTS traffic sign", job 30. Label traffic_sign (rectangle) và tag image_status. Không dùng task cũ "Day9 - Traffic Sign (GTSDB)" id 27 (schema khác). Ảnh BDD chưa thêm. Nhóm khác chỉ vào được nếu dùng máy này, hoặc cùng mạng LAN vào http://<ip-máy>:8080 và được gán job.

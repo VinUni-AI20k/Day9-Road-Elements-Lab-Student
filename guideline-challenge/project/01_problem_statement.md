@@ -1,31 +1,28 @@
 # Problem statement + downstream contract
 
-Tối đa nửa trang, viết **trước khi mở CVAT**. Đây là bằng chứng của gate G1 (topic lock). Thay mọi placeholder
-mới là xong.
+Gate G1. Viết từ guideline v1 và `sample_pack.csv`.
 
 ## Bài toán
 
-TODO — một câu: road element nào, trong tình huống nào, khó ở đâu. "Label traffic signs" là quá rộng; "hierarchical
-sign taxonomy cho biển nhỏ/xa/bị che" là đủ cụ thể.
+Taxonomy biển báo Đức cho biển nhỏ, xa hoặc bị che: một class `traffic_sign`, loại biển nằm ở attribute, không tách hàng trăm class.
 
 ## Downstream contract
 
-1. **Downstream task / model / user là ai?** TODO
-2. **Output annotation nào thực sự cần?** (geometry, class, attribute nào) TODO
-3. **Failure nào gây hậu quả lớn nhất?** (đây sẽ là decision `critical` trong gold) TODO
-4. **Khi ambiguity không resolve được, ai / ở đâu là escalation path?** TODO
+1. **Downstream task / model / user là ai?** Bộ dữ liệu cho hệ thống phát hiện và nhận dạng biển Đức: ảnh có biển hay không, vị trí, nhóm biển, nhận dạng chắc hay không, mức che.
+2. **Output annotation nào thực sự cần?** Rectangle `traffic_sign` với `sign_family`, `sign_code`, `visibility`, `identification`, `review_status`. Tag `image_status` (`contains_sign`, `no_sign`, `uncertain`).
+3. **Failure nào gây hậu quả lớn nhất?** Bỏ sót biển thật, gán mã Đức khi không đủ bằng chứng, hoặc vẽ box giả trên ảnh không có biển.
+4. **Khi ambiguity không resolve được, ai / ở đâu là escalation path?** Trên đúng object: `review_status = escalate`. Cả ảnh chưa chắc: `image_status.status = uncertain`. Không đoán `sign_code`.
 
 ## Scope
 
-- **Trong scope (bắt buộc label):** TODO
-- **Ngoài scope (ignore):** TODO
-- **Geometry tolerance:** TODO (ví dụ "box ôm phần vỏ đèn nhìn thấy, lệch ≤ 2 px mỗi cạnh là đạt")
+- **Trong scope (bắt buộc label):** biển Đức nhìn thấy, kể cả bị che một phần, ở xa nếu vẫn xác định được là biển, biển tạm thời, biển trên cột hoặc giàn.
+- **Ngoài scope (ignore):** quảng cáo, logo, biển hiệu cửa hàng, vạch kẻ đường, sticker trên xe, biển trang trí, vật giống biển nhưng không đủ bằng chứng. Không vẽ box.
+- **Geometry tolerance:** box ôm phần biển nhìn thấy, sát mép, không gồm cột hay nền. Không suy ra phần bị che hết. Guideline chưa chốt ngưỡng pixel.
 
 ## Output chấm được
 
-TODO — loại decision nào sẽ có trong blind test: LABEL / IGNORE / UNKNOWN / ESCALATE, class, attribute, geometry.
-Mỗi loại phải nhìn thấy được trong file export CVAT, nếu không thì không chấm được.
+LABEL (box `traffic_sign` + attribute), IGNORE (không có box), UNKNOWN (`sign_family` / `sign_code` / `identification = unknown`), ESCALATE (`review_status = escalate` hoặc tag `uncertain`), geometry (box ôm phần nhìn thấy). Cả năm loại đều thấy trong export CVAT.
 
 ## Dữ liệu và giới hạn
 
-TODO — nguồn ảnh, số ảnh dự kiến dùng, giới hạn đã biết (ví dụ LISA trong repo chỉ có một clip 30 frame liên tiếp).
+Không dùng `lisa`. Pack 18 ảnh: 11 `gtsdb` (example 5, calibration 6) và 7 `bdd100k` (calibration 2, blind 5: `BDD07`, `BDD08`, `BDD18`, `BDD22`, `BDD26`). Blind toàn ảnh BDD, không trùng example. Nhóm chưa soát hết ảnh BDD nào có biển; bảy ảnh BDD trong pack là tập đang dùng.

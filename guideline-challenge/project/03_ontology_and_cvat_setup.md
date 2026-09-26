@@ -64,9 +64,9 @@ review_status = escalate
 
 ## CVAT
 
-- **Phiên bản CVAT** (`make cvat-status`): TODO
-- **Tên task calibration** (có version guideline, ví dụ `team07-calib-v1`): TODO
-- **Guide của task đã dán `02_guideline.md`?** TODO (có / chưa)
+- **Phiên bản CVAT** (`make cvat-status`): 2.75.1 tại http://localhost:8080
+- **Tên task calibration** (có version guideline, ví dụ `team07-calib-v1`): chưa tạo — `sample_pack.csv` chưa chia example/calibration/blind. Task bộ GTS cho nhóm khác label: project `Day9 - GTS traffic sign` (id 6, http://localhost:8080/projects/6), task `gtsdb-v1` (id 29, http://localhost:8080/tasks/29), job annotation id 30, owner `bancie`. 28 ảnh `GTS01.png`–`GTS28.png`, một job, guideline v1. Ảnh BDD chưa thêm.
+- **Guide của task đã dán `02_guideline.md`?** có — dán vào Guide của project (guide id 2); task trong project dùng chung
 - **Shape hay Track:** Shape. Ảnh tĩnh, mỗi biển một rectangle, không có track qua frame.
 
 Labels dán vào tab Raw lấy từ `03_cvat_labels.json`.
